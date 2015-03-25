@@ -16,7 +16,7 @@ string_t* string_new_text(const char* str)
 {
     // Allocate space for the string
     string_t* strn = malloc(sizeof(string_t));
-    unsigned long len = str_length_raw(str);
+    unsigned long len = string_length_raw(str);
     strn->str = malloc(len);
 
     // Copy str into strn
@@ -35,17 +35,17 @@ void string_destroy(string_t* strn)
     strn = NULL;
 }
 
-bool str_match(string_t* str1, string_t* str2)
+int string_match(string_t* str1, string_t* str2)
 {
-    if (str1->len != str2->len || str1 == NULL || str2 == NULL) return false;
+    if (str1->len != str2->len || str1 == NULL || str2 == NULL) return 0;
 
     for (unsigned long l = 0; l < str1->len; l++)
-	if (str1->str[l] != str2->str[l]) return false;
+	if (str1->str[l] != str2->str[l]) return 0;
 
-    return true;
+    return 1;
 }
 
-string_t* str_append_string(string_t* str1, string_t* str2)
+string_t* string_append_string(string_t* str1, string_t* str2)
 {
     // Resize str1 to accomodate for both str1 and str2
     str1->str = realloc(str1->str, str1->len + str2->len);
@@ -59,35 +59,35 @@ string_t* str_append_string(string_t* str1, string_t* str2)
     return str1;
 }
 
-string_t* str_append_raw(string_t* str1, char* str2)
+string_t* string_append_raw(string_t* str1, char* str2)
 {
     string_t* temp = string_new_text(str2);
-    str_append_string(str1, temp);
+    string_append_string(str1, temp);
     string_destroy(temp);
 
     return str1;
 }
 
-string_t* str_prepend_string(string_t* str1, string_t* str2)
+string_t* string_prepend_string(string_t* str1, string_t* str2)
 {
     string_t* result = string_new();
-    str_copy(str2, result);
-    str_append_string(result, str1);
-    str_swap(str1, result);
+    string_copy(str2, result);
+    string_append_string(result, str1);
+    string_swap(str1, result);
 
     return str1;
 }
 
-string_t* str_prepend_raw(string_t* str1, char* str2)
+string_t* string_prepend_raw(string_t* str1, char* str2)
 {
     string_t* temp = string_new_text(str2);
-    str_prepend_string(str1, temp);
+    string_prepend_string(str1, temp);
     string_destroy(temp);
 
     return str1;
 }
 
-string_t* str_case_convert(string_t* str, case_conversion cc)
+string_t* string_case_convert(string_t* str, case_conversion cc)
 {
     switch (cc)
     {
@@ -107,7 +107,7 @@ string_t* str_case_convert(string_t* str, case_conversion cc)
     return str;
 }
 
-string_t* str_clear(string_t* str)
+string_t* string_clear(string_t* str)
 {
     str->str = realloc(str->str, 1);
     str->str[0] = '\0';
@@ -116,7 +116,7 @@ string_t* str_clear(string_t* str)
     return str;
 }
 
-string_t* str_fill(string_t* str, char c)
+string_t* string_fill(string_t* str, char c)
 {
     for (unsigned long l = 0; l < str->len; l++)
 	str->str[l] = c;
@@ -124,16 +124,16 @@ string_t* str_fill(string_t* str, char c)
     return str;
 }
 
-void str_swap(string_t* str1, string_t* str2)
+void string_swap(string_t* str1, string_t* str2)
 {
     string_t* temp = string_new();
-    str_copy(str1, temp);
-    str_copy(str2, str1);
-    str_copy(temp, str2);
+    string_copy(str1, temp);
+    string_copy(str2, str1);
+    string_copy(temp, str2);
     string_destroy(temp);
 }
 
-void str_copy(string_t* src, string_t* dest)
+void string_copy(string_t* src, string_t* dest)
 {
     dest->str = realloc(dest->str, src->len);
     dest->len = src->len;
@@ -142,7 +142,7 @@ void str_copy(string_t* src, string_t* dest)
 	dest->str[l] = src->str[l];
 }
 
-unsigned long str_length_raw(const char* str)
+unsigned long string_length_raw(const char* str)
 {
     unsigned long len = 0;
     for (;; len++)
