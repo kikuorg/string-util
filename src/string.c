@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "string.h"
+#include "../include/string.h"
 
 string_t* string_new()
 {
@@ -14,12 +14,12 @@ string_t* string_new()
 
 string_t* string_new_text(const char* str)
 {
-    // Allocate space for the string
+    /* Allocate space for the string */
     string_t* strn = malloc(sizeof(string_t));
     unsigned long len = string_length_raw(str);
     strn->str = malloc(len);
 
-    // Copy str into strn
+    /* Copy str into strn */
     for (unsigned long l = 0; l < len; l++)
 	strn->str[l] = str[l];
 
@@ -47,13 +47,13 @@ int string_match(string_t* str1, string_t* str2)
 
 string_t* string_append_string(string_t* str1, string_t* str2)
 {
-    // Resize str1 to accomodate for both str1 and str2
+    /* Resize str1 to accomodate for both str1 and str2 */
     str1->str = realloc(str1->str, str1->len + str2->len);
     
     for (unsigned long l = str1->len; l < str1->len + str2->len; l++)
 	str1->str[l] = str2->str[l - str1->len];
 
-    // Update the size
+    /* Update the size */
     str1->len += str2->len;
     
     return str1;
@@ -142,9 +142,7 @@ void string_copy(string_t* src, string_t* dest)
 	dest->str[l] = src->str[l];
 }
 
-unsigned long string_length_raw(const char* str)
+size_t string_length(string_t* str)
 {
-    unsigned long len = 0;
-    for (;; len++)
-	if (str[len] == '\0') return len;
+    return strlen(str->str);
 }

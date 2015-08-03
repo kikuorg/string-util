@@ -1,28 +1,24 @@
 #ifndef STRING_H
 #define STRING_H
 
-#include <stddef.h>
-
 /* String conversion macros */
-#define RAW(X) (X->str)
-#define STR(X) (string_new_text(X))
+#define raw(X) (X->str)
+#define str(X) (string_new_text(X))
 
 /* Case conversion macros */
-#define string_upper(S) str_case_convert(S, CC_UPPER)
-#define string_lower(S) str_case_convert(S, CC_LOWER)
+#define str_upper(S) str_case_convert(S, CC_UPPER)
+#define str_lower(S) str_case_convert(S, CC_LOWER)
 
 typedef enum
 {
     CC_UPPER,
     CC_LOWER
-
 } case_conversion;
 
 typedef struct
 {
     unsigned long len;
     char* str;
-
 } string_t;
 
 /* Initialisation/Destruction */
@@ -41,6 +37,8 @@ string_t* string_clear(string_t* str);
 string_t* string_fill(string_t* str, char c);
 void	  string_swap(string_t* str1, string_t* str2);
 void	  string_copy(string_t* src, string_t* dest);
-size_t    string_length(string_t* str);
+
+/* Raw string utilities */
+unsigned long string_length_raw(const char* str);
 
 #endif
