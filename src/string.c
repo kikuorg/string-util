@@ -5,7 +5,13 @@
 string_t* string_new()
 {
     string_t* strn = malloc(sizeof(string_t));
+    if (strn == NULL)
+	return NULL;
     strn->str = malloc(1);
+    if (strn == NULL) {
+        free(strn);
+        return NULL;
+    }
     strn->str[0] = '\0';
     strn->len = 0;
 
@@ -16,8 +22,14 @@ string_t* string_new_text(const char* str)
 {
     /* Allocate space for the string */
     string_t* strn = malloc(sizeof(string_t));
+    if (strn == NULL)
+        return NULL;
     unsigned long len = string_length_raw(str);
     strn->str = malloc(len);
+    if (strn->str == NULL) {
+        free(strn);
+        return NULL;
+    }
 
     /* Copy str into strn */
     for (unsigned long l = 0; l < len; l++)
