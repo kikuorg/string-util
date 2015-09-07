@@ -160,3 +160,13 @@ size_t string_length(string_t* str)
 {
     return strlen(str->str);
 }
+
+string_t* string_revert(string_t* str)
+{
+    unsigned long len = str->len;
+
+    for (unsigned long l = 0; l < len/2; l++)
+	str->str[l] = str->str[len-i-1];
+
+    return str;
+}
