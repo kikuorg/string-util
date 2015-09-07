@@ -42,8 +42,10 @@ string_t* string_new_text(const char* str)
 
 void string_destroy(string_t* strn)
 {
-    free(strn->str);
-    free(strn);
+    if (strn != NULL) {
+        free(strn->str);
+        free(strn);
+    }
     strn = NULL;
 }
 
