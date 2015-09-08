@@ -6,3 +6,6 @@ all: string.o
 
 string.o: src/string.c
 	$(CC) string.c -o string.o $(CFLAGS)
+
+clean:
+	rm -f string.o
