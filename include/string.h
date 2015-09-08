@@ -35,6 +35,8 @@ string_t* string_prepend_raw(string_t* str1, char* str2);
 string_t* string_case_convert(string_t* str, case_conversion cc);
 string_t* string_clear(string_t* str);
 string_t* string_fill(string_t* str, char c);
+string_t* string_revert(string_t* str)
+string_t* string_skip_blank(string_t* str)
 void	  string_swap(string_t* str1, string_t* str2);
 void	  string_copy(string_t* src, string_t* dest);
 
