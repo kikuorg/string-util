@@ -1,3 +1,9 @@
+/*
+ * String utility functions
+ *
+ *	Copyright 2015 Sony Corporation
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "../include/string.h"

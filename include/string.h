@@ -1,3 +1,9 @@
+/*
+ * String utility functions
+ *
+ *	Copyright 2015 Sony Corporation
+ */
+
 #ifndef STRING_H
 #define STRING_H
 
