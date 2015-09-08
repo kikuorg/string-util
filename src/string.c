@@ -170,3 +170,16 @@ string_t* string_revert(string_t* str)
 
     return str;
 }
+
+string_t* string_skip_blank(string_t* str)
+{
+    unsigned long j=0;
+
+    for (unsigned long i = 0; i < str->len; i++){
+	if (str->str[i] == ' ' || str->str[i] == '\t')
+	    str->str[j++] = str->str[i];
+    }
+    str->str[j] = '\0';
+
+    return str;
+}
